@@ -1,0 +1,9 @@
+start-all.sh
+cd IST3134/
+cd python/
+nano mapper.py
+nano reducer.py
+chmod +x mapper.py reducer.py
+echo “I love hadoop but I love BSDA more” | python3 /home/hadoop/IST3134/python/mapper.py
+hadoop jar /home/hadoop/hadoop-3.2.2/share/hadoop/tools/lib/hadoop-streaming-3.2.2.jar -input train.csv -output pc -file mapper.py -file reducer.py -mapper mapper.py -reducer reducer.py
+hadoop fs -cat /user/hadoop/pythoncount/part-00000 | head -n 10
