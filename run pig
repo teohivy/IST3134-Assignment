@@ -6,4 +6,4 @@ grunt> words = FOREACH data GENERATE FLATTEN(TOKENIZE(REPLACE(text, '[^a-zA-Z ]'
 grunt> filtered_words = FILTER words BY word != '';
 grunt> word_counts = GROUP filtered_words BY word;
 grunt> word_count_result = FOREACH word_counts GENERATE group AS word, COUNT(filtered_words) AS count;
-grunt> STORE word_count_result INTO '/home/Hadoop/IST3134/pigc' USING PigStorage('\t');
+grunt> STORE word_count_result INTO '/home/hadoop/IST3134/pigc' USING PigStorage('\t');
