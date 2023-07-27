@@ -1,0 +1,4 @@
+sudo mv wordcount.py /home/hadoop/IST3134
+sudo su - hadoop
+cd IST3134
+python3 wordcount.py
