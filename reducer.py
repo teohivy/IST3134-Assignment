@@ -29,9 +29,3 @@ for line in sys.stdin:
 # print last word and its count
 if current_word:
     print('%s\t%s' % (current_word, current_count))
-
-######################################################################################
-#references: 
-#https://www.edureka.co/blog/hadoop-streaming-mapreduce-program/
-#https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
-######################################################################################
