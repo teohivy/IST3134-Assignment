@@ -1,3 +1,6 @@
+start-all.sh
+cd IST3134
+pig -x local -d error
 grunt> data = LOAD '/home/hadoop/IST3134/train.csv' USING PigStorage(',') AS (polarity: int, title: chararray, text: chararray);
 grunt> words = FOREACH data GENERATE FLATTEN(TOKENIZE(REPLACE(text, '[^a-zA-Z ]', ''))) as word;
 grunt> filtered_words = FILTER words BY word != '';
