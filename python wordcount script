@@ -1,0 +1,52 @@
+import pandas as pd
+import string
+import time
+
+# Read the CSV file and specify the column names
+df = pd.read_csv('/home/hadoop/IST3134/train.csv', names=['polarity', 'title', 'text'])
+
+def word_count(text):
+    # Convert the text to lowercase to handle case-insensitivity
+    text = text.lower()
+
+    # Remove punctuation marks
+    text = text.translate(str.maketrans('', '', string.punctuation))
+
+    # Split the text into words
+    words = text.split()
+
+    # Create a dictionary to store word frequencies
+    word_count_dict = {}
+    for word in words:
+        # Increment the word count for each word
+        word_count_dict[word] = word_count_dict.get(word, 0) + 1
+
+    return word_count_dict
+
+# Record the start time
+start_time = time.time()
+
+# Process 'text' column in chunks and perform word count
+chunk_size = 1000
+num_chunks = len(df) // chunk_size + 1
+
+result = {}
+for i in range(num_chunks):
+    start = i * chunk_size
+    end = start + chunk_size
+    chunk_text = df['text'][start:end].str.cat(sep=' ')
+    chunk_result = word_count(chunk_text)
+
+    # Merge chunk results into the final result dictionary
+    for word, count in chunk_result.items():
+        result[word] = result.get(word, 0) + count
+
+# Record the end time
+end_time = time.time()
+
+# Calculate and print the execution time
+execution_time_seconds = end_time - start_time
+execution_time_minutes = execution_time_seconds // 60
+execution_time_seconds %= 60
+
+print(f"Execution time: {int(execution_time_minutes)} minutes {int(execution_time_seconds)} seconds")
