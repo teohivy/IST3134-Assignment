@@ -1,0 +1,13 @@
+-- Load the CSV data
+data = LOAD '/home/hadoop/IST3134/train.csv' USING PigStorage(',') AS (polarity: int, title: chararray, text: chararray);
+
+-- Tokenize the text and filter out punctuation and numbers
+words = FOREACH data GENERATE FLATTEN(TOKENIZE(REPLACE(text, '[^a-zA-Z ]', ''))) as word;
+filtered_words = FILTER words BY word != '';
+
+-- Group by word and count the occurrences
+word_counts = GROUP filtered_words BY word;
+word_count_result = FOREACH word_counts GENERATE group AS word, COUNT(filtered_words) AS count;
+
+-- Store the word count result
+STORE word_count_result INTO '/home/hadoop/IST3134/pig_count' USING PigStorage('\t');
