@@ -11,3 +11,9 @@ word_count_result = FOREACH word_counts GENERATE group AS word, COUNT(filtered_w
 
 -- Store the word count result
 STORE word_count_result INTO '/home/hadoop/IST3134/pig_count' USING PigStorage('\t');
+
+
+#########################################################################################################################
+References:
+http://www.hadooplessons.info/2015/01/word-count-in-pig-latin.html
+https://bigdatansql.com/2021/01/10/word-count-in-apache-pig/
