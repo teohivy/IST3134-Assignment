@@ -1,3 +1,3 @@
 start-all.sh
 cd IST3134
-pig -x local -f pigcount.pig
+pig -x local -f pig_count.pig
