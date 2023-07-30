@@ -1,9 +1,3 @@
 start-all.sh
 cd IST3134
-pig -x local -d error
-grunt> data = LOAD '/home/hadoop/IST3134/train.csv' USING PigStorage(',') AS (polarity: int, title: chararray, text: chararray);
-grunt> words = FOREACH data GENERATE FLATTEN(TOKENIZE(REPLACE(text, '[^a-zA-Z ]', ''))) as word;
-grunt> filtered_words = FILTER words BY word != '';
-grunt> word_counts = GROUP filtered_words BY word;
-grunt> word_count_result = FOREACH word_counts GENERATE group AS word, COUNT(filtered_words) AS count;
-grunt> STORE word_count_result INTO '/home/hadoop/IST3134/pigc' USING PigStorage('\t');
+pig -x local -f pigcount.pig
